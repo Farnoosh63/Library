@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="BookTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2016-05-10T18:40:35" hostname="epicodus-59.local" time="0.136">
+  <properties/>
+  <testcase name="find_findsBooksInDatabase_True" classname="BookTest" time="0.013"/>
+  <testcase name="addAuthor_addsAuthorToBook" classname="BookTest" time="0.024"/>
+  <testcase name="getName_bookWithName_String" classname="BookTest" time="0.005"/>
+  <testcase name="save_returnsTrueIfNamesAretheSame" classname="BookTest" time="0.014"/>
+  <testcase name="all_emptyAtFirst" classname="BookTest" time="0.008"/>
+  <testcase name="equals_returnsTrueIfNamesAreTheSame" classname="BookTest" time="0.004"/>
+  <testcase name="getAuthors_returnsAllAuthors_List" classname="BookTest" time="0.022"/>
+  <testcase name="Book_instantiatesCorrectly_true" classname="BookTest" time="0.005"/>
+  <testcase name="save_assignsIdToObject" classname="BookTest" time="0.012"/>
+  <testcase name="delete_deletesAllBooksAndAuthorsAssociations" classname="BookTest" time="0.026"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
