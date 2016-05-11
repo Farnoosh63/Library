@@ -53,25 +53,19 @@ public class App {
     // SHOW SEARCH BOOKS FORM
      get("/books/search", (request, response) -> {
      HashMap<String, Object> model = new HashMap<String, Object>();
+     if (request.queryParams().size() > 0 ){
+       int authorIdThatBeingSearched = Integer.parseInt(request.queryParams("author_id"));
+       Author authorSearched = Author.find(authorIdThatBeingSearched);
+       List<Book> booksByAuthor = authorSearched.getBooks();
 
+       model.put("books", booksByAuthor);
+     }
      model.put("allAuthors", Author.all());
      model.put("template", "templates/book-search.vtl");
        return new ModelAndView(model, layout);
      }, new VelocityTemplateEngine());
 
-    // PROCESSES SEARCH FORM
-     post("/books/search", (request, response) -> {
-       HashMap<String, Object> model = new HashMap<String, Object>();
-      // List<String> searchedAuthorId = new ArrayList<String>();
-       String searchedByAuthorName = request.queryParams("book-search");
-       int authorIdThatBeingSearched = Integer.parseInt(request.queryParams("author_id"));
-      Author authorSearched = Author.getBooks.(Author.find(authorIdThatBeingSearched));
-       System.out.println(authorSearched);
-       //authorSearched.getBooks();
-       model.put("books", searchedAuthorId);
-       response.redirect("/books/search");
-       return null;
-     });
+
 
     get("/books/:id", (request,response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();

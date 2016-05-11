@@ -152,7 +152,7 @@ public class AppTest extends FluentTest {
     submit(".btn");
     goTo("http://localhost:4567/");
     click("a", withText("Search for a book"));
-    fill("#book-search").with("Paulo Coelho");
+    fillSelect("#author_id").withText("Paulo Coelho");
     submit("#search-button");
     assertThat(pageSource()).contains("The Alchemist");
   }

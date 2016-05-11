@@ -1,20 +1,21 @@
 
 <p>Book Search By Author</p>
 
-<form action='/books/search' method='post'>
+<form action='/books/search' method='get'>
   <label for="author_id">Select an author</label>
   <select id='author_id' name='author_id' type='text'>
     #foreach($author in $allAuthors)
-      <option value="$author.getId()"> $author.getName() </option>
+      <option id="blah" value="$author.getId()"> $author.getName() </option>
     #end
   </select>
-  <button type="submit" class="btn btn-info">Search</button>
+  <button id="search-button" type="submit" class="btn btn-info">Search</button>
 </form>
 
-<a href="/$book.all()">Return to books</a>
 
+#if($books)
 <ul>
   #foreach ($book in $books)
     <li><a href="/book.getId()">$book.getName()</a></li>
   #end
 </ul>
+#end
