@@ -40,7 +40,7 @@ public class Author {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO Authors(name) VALUES (:name)";
+      String sql = "INSERT INTO authors(name) VALUES (:name)";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("name", this.name)
         .executeUpdate()
@@ -50,13 +50,43 @@ public class Author {
 
   public static Author find(int id) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM Authors where id=:id";
+      String sql = "SELECT * FROM authors where id=:id";
       Author author = con.createQuery(sql)
         .addParameter("id", id)
         .executeAndFetchFirst(Author.class);
       return author;
     }
   }
+
+
+  // public static List<String> findAuthorByName(String name) {
+  //   try(Connection con = DB.sql2o.open()) {
+  //     String sql = "SELECT id FROM authors WHERE name=:name ";
+  //     List<Integer> authorIds = con.createQuery(sql)
+  //       .addParameter("name", name)
+  //       .executeAndFetch(Integer.class);
+  //
+  //       List<Integer> bookIds = new ArrayList<>();
+  //       for (Integer authorId : authorIds) {
+  //         String authorQuery = "SELECT book_id FROM authors_books WHERE id = :authorId";
+  //         Integer idForAuthor = con.createQuery(authorQuery)
+  //           .addParameter("authorId", authorId)
+  //           .executeAndFetchFirst(Integer.class);
+  //         bookIds.add(idForAuthor);
+  //       }
+  //       List<String> booksName = new ArrayList<String>();
+  //       for (Integer bookId : bookIds) {
+  //         String bookQuery = "SELECT name FROM books WHERE id = :bookId";
+  //         String bookNameById = con.createQuery(bookQuery)
+  //           .addParameter("bookId", bookId)
+  //           .executeAndFetchFirst(String.class);
+  //         booksName.add(bookNameById);
+  //       }
+  //       System.out.println(booksName);
+  //     return booksName ;
+  //   }
+  // }
+
   public void addBook(Book book) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO authors_books (author_id, book_id) VALUES (:author_id, :book_id)";
@@ -86,6 +116,8 @@ public class Author {
       return books;
     }
   }
+
+  
 
   public void delete() {
     try(Connection con = DB.sql2o.open()) {

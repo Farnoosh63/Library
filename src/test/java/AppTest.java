@@ -139,4 +139,21 @@ public class AppTest extends FluentTest {
     goTo(allAuthorsPath);
     assertThat(pageSource()).doesNotContain("Paulo Coelho");
   }
+
+  @Test
+  public void bookSearchByAuthorName() {
+    Author testAuthor = new Author("Paulo Coelho");
+    testAuthor.save();
+    Book testBook = new Book("The Alchemist");
+    testBook.save();
+    String url = String.format("http://localhost:4567/books/%d", testBook.getId());
+    goTo(url);
+    fillSelect("#author_id").withText("Paulo Coelho");
+    submit(".btn");
+    goTo("http://localhost:4567/");
+    click("a", withText("Search for a book"));
+    fill("#book-search").with("Paulo Coelho");
+    submit("#search-button");
+    assertThat(pageSource()).contains("The Alchemist");
+  }
 }

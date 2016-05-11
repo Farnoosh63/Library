@@ -3,6 +3,7 @@ import java.util.HashMap;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 import static spark.Spark.*;
+import java.util.List;
 
 import java.util.ArrayList;
 
@@ -49,10 +50,32 @@ public class App {
       return null;
     });
 
+    // SHOW SEARCH BOOKS FORM
+     get("/books/search", (request, response) -> {
+     HashMap<String, Object> model = new HashMap<String, Object>();
+
+     model.put("allAuthors", Author.all());
+     model.put("template", "templates/book-search.vtl");
+       return new ModelAndView(model, layout);
+     }, new VelocityTemplateEngine());
+
+    // PROCESSES SEARCH FORM
+     post("/books/search", (request, response) -> {
+       HashMap<String, Object> model = new HashMap<String, Object>();
+      // List<String> searchedAuthorId = new ArrayList<String>();
+       String searchedByAuthorName = request.queryParams("book-search");
+       int authorIdThatBeingSearched = Integer.parseInt(request.queryParams("author_id"));
+      Author authorSearched = Author.getBooks.(Author.find(authorIdThatBeingSearched));
+       System.out.println(authorSearched);
+       //authorSearched.getBooks();
+       model.put("books", searchedAuthorId);
+       response.redirect("/books/search");
+       return null;
+     });
+
     get("/books/:id", (request,response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
-      int book_id = Integer.parseInt(request.params("id"));
-      // System.out.println(book_id);
+      int book_id = Integer.parseInt(request.params(":id"));
       Book book = Book.find(book_id);
       model.put("book", book);
       model.put("allAuthors", Author.all());
@@ -62,7 +85,7 @@ public class App {
 
     get("/authors/:id", (request,response) ->{
       HashMap<String, Object> model = new HashMap<String, Object>();
-      Author author = Author.find(Integer.parseInt(request.params("id")));
+      Author author = Author.find(Integer.parseInt(request.params(":id")));
       model.put("author", author);
       model.put("allBooks", Book.all());
       model.put("template", "templates/author.vtl");
@@ -141,6 +164,9 @@ public class App {
          response.redirect("/authors");
          return null;
        });
+
+
+
 
   }
 }
